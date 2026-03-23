@@ -119,5 +119,3 @@ Structured into multiple modules
 Database-connected
 Error-free
 Suitable for real-time company usage
-
-Ready for project submission / interview demonstration
