@@ -1,0 +1,47 @@
+@model List<CRMProductSystem.Models.Order>
+
+<h2>Order List</h2>
+
+<a href="/Order/Create" class="e-btn e-primary">Create Order</a>
+
+<br /><br />
+
+<ejs-grid id="OrdersGrid"
+          dataSource="@Model"
+          allowPaging="true"
+          allowSorting="true"
+          allowFiltering="true"
+          allowTextWrap="true">
+
+    <e-grid-columns>
+
+        <e-grid-column field="OrderId"
+                       headerText="Order ID"
+                       width="120"
+                       textAlign="Right">
+        </e-grid-column>
+
+        <e-grid-column field="CustomerName"
+                       headerText="Customer"
+                       width="200">
+        </e-grid-column>
+
+        <e-grid-column field="Username"
+                       headerText="Created By"
+                       width="180">
+        </e-grid-column>
+
+        <e-grid-column field="OrderDate"
+                       headerText="Order Date"
+                       width="180"
+                       format="dd-MM-yyyy">
+        </e-grid-column>
+
+        <e-grid-column headerText="Action"
+                       width="150"
+                       template="<a href='/Order/Details/${OrderId}' class='e-btn e-info'>View</a>">
+        </e-grid-column>
+
+    </e-grid-columns>
+
+</ejs-grid>

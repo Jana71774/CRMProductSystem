@@ -1,0 +1,54 @@
+@model CRMProductSystem.Models.Order
+
+<h2>Order Details</h2>
+
+<!-- MASTER HEADER -->
+<div class="e-card" style="padding:20px;width:600px;margin-bottom:20px">
+
+    <h3>Order #@Model.OrderId</h3>
+
+    <p><b>Customer:</b> @Model.CustomerName</p>
+    <p><b>Created By:</b> @Model.Username</p>
+    <p><b>Date:</b> @Model.OrderDate.ToString("dd-MM-yyyy")</p>
+
+</div>
+
+<!-- ITEMS GRID -->
+<ejs-grid id="ItemsGrid"
+          dataSource="@ViewBag.Items"
+          allowPaging="true"
+          allowSorting="true"
+          allowFiltering="true">
+
+    <e-grid-columns>
+
+        <e-grid-column field="ProductName"
+                       headerText="Product"
+                       width="200">
+        </e-grid-column>
+
+        <e-grid-column field="Price"
+                       headerText="Price"
+                       width="120"
+                       textAlign="Right"
+                       format="C2">
+        </e-grid-column>
+
+        <e-grid-column field="Description"
+                       headerText="Description"
+                       width="250">
+        </e-grid-column>
+
+        <e-grid-column field="Quantity"
+                       headerText="Quantity"
+                       width="120"
+                       textAlign="Right">
+        </e-grid-column>
+
+    </e-grid-columns>
+
+</ejs-grid>
+
+<br />
+
+<a href="/Order/Index" class="e-btn e-primary">Back to Orders</a>

@@ -1,0 +1,91 @@
+@model CRMProductSystem.Models.Product
+
+<style>
+
+    .form-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 13px;
+        margin-top: 4px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background-color: #193321;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn-submit:hover {
+        background-color: #204130;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Add Product</h2>
+
+    <form method="post" asp-action="Create" id="productForm">
+        <div class="form-group">
+            <label asp-for="ProductName">Product Name</label>
+            <input asp-for="ProductName" required />
+            <div class="error-message" id="nameError">Please enter the product name.</div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price">Price</label>
+            <input asp-for="Price" type="number" required />
+            <div class="error-message" id="priceError">Please enter a valid price.</div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Save Product</button>
+    </form>
+</div>

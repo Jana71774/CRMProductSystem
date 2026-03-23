@@ -1,0 +1,43 @@
+@model List<CRMProductSystem.Models.Customer>
+
+<h2>Customers</h2>
+
+<div class="glassmorphism p-4 mb-4">
+    <a href="@Url.Action("Create", "Customer")">
+        <button class="btn-glass">Add Customer</button>
+    </a>
+
+    <br /><br />
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <ejs-grid id="customerGrid"
+                  dataSource="@Model"
+                  allowPaging="true"
+                  allowSorting="true"
+                  allowFiltering="true"
+                  toolbar="@(new List<string> { "Search" })"
+                  height="400px"
+                  editSettings="@(new Syncfusion.EJ2.Grids.GridEditSettings { AllowEditing = true, AllowAdding = true, AllowDeleting = true, Mode = Syncfusion.EJ2.Grids.EditMode.Dialog })">
+
+            <e-grid-columns>
+                <e-grid-column field="CustomerName" headerText="Name" width="200"></e-grid-column>
+                <e-grid-column field="Phone" headerText="Phone" width="150"></e-grid-column>
+                <e-grid-column field="Email" headerText="Email" width="200"></e-grid-column>
+                <e-grid-column field="Address" headerText="Address" width="250"></e-grid-column>
+
+                <!-- Correct way to add Actions column -->
+                <e-grid-command-column headerText="Actions" width="150" textAlign="Center">
+                    <e-grid-command-buttons>
+                        <e-grid-command-button type="Edit" buttonOption-text="Edit"></e-grid-command-button>
+                        <e-grid-command-button type="Delete" buttonOption-text="Delete"></e-grid-command-button>
+                    </e-grid-command-buttons>
+                </e-grid-command-column>
+            </e-grid-columns>
+        </ejs-grid>
+    }
+    else
+    {
+        <p>No customers found</p>
+    }
+</div>

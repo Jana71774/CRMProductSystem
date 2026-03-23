@@ -1,0 +1,70 @@
+@model CRMProductSystem.ViewModels.SalesReportVM
+
+<h2>Sales Report</h2>
+
+<form method="get" asp-action="SalesReport">
+    <div class="row mb-3">
+
+        <div class="col-md-3">
+            <label>From Date</label>
+            <input type="date" name="fromDate" value="@Model.FromDate?.ToString("yyyy-MM-dd")" class="form-control" />
+        </div>
+
+        <div class="col-md-3">
+            <label>To Date</label>
+            <input type="date" name="toDate" value="@Model.ToDate?.ToString("yyyy-MM-dd")" class="form-control" />
+        </div>
+
+        <div class="col-md-3 d-flex align-items-end">
+            <button class="btn btn-primary">Filter</button>
+        </div>
+
+    </div>
+</form>
+
+<hr />
+
+<div class="row mb-3">
+
+    <div class="col-md-3">
+        <div class="card bg-primary text-white p-3">
+            <h5>Total Orders</h5>
+            <h3>@Model.TotalOrders</h3>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-success text-white p-3">
+            <h5>Total Revenue</h5>
+            <h3>$@Model.TotalRevenue</h3>
+        </div>
+    </div>
+
+    <div class="col-md-6 d-flex align-items-end justify-content-end">
+
+        <a asp-action="ExportToExcel"
+           asp-route-fromDate="@Model.FromDate"
+           asp-route-toDate="@Model.ToDate"
+           class="btn btn-success me-2">
+            Export to Excel
+        </a>
+
+        <a asp-action="ExportToPdf"
+           asp-route-fromDate="@Model.FromDate"
+           asp-route-toDate="@Model.ToDate"
+           class="btn btn-danger">
+            Export to PDF
+        </a>
+
+    </div>
+
+</div>
+
+<ejs-grid id="OrdersGrid" dataSource="@Model.Orders" allowPaging="true" allowSorting="true" allowFiltering="true" pageSettings="@(new Syncfusion.EJ2.Grids.GridPageSettings { PageSize = 10 })" height="400px">
+    <e-grid-columns>
+        <e-grid-column field="OrderId" headerText="Order ID" width="100" textAlign="Right"></e-grid-column>
+        <e-grid-column field="CustomerName" headerText="Customer Name" width="200"></e-grid-column>
+        <e-grid-column field="OrderDate" headerText="Order Date" width="150" format="yMd"></e-grid-column>
+        <e-grid-column field="TotalAmount" headerText="Total Amount" width="120" format="C2" textAlign="Right"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>

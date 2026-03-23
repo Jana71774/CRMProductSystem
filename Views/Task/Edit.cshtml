@@ -1,0 +1,21 @@
+@model CRMProductSystem.Models.TaskModel
+
+<h2>Edit Task</h2>
+
+<form method="post">
+
+    <input type="hidden" asp-for="TaskId" />
+
+    <input asp-for="Title" /><br />
+
+    <select asp-for="AssignedTo" asp-items="@(new SelectList(ViewBag.Users, "UserId", "Username"))"></select><br />
+
+    <select asp-for="Status">
+        <option>Pending</option>
+        <option>In Progress</option>
+        <option>Completed</option>
+    </select><br />
+
+    <button type="submit">Update</button>
+
+</form>

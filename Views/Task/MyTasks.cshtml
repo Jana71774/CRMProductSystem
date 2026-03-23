@@ -1,0 +1,24 @@
+@model List<CRMProductSystem.Models.TaskModel>
+
+<h2>My Tasks</h2>
+
+<div class="glassmorphism p-4">
+<ejs-grid id="empGrid"
+          dataSource="@Model"
+          allowPaging="true"
+          allowFiltering="true"
+          toolbar="@(new List<string>() { "Search" })">
+
+    <e-grid-columns>
+        <e-grid-column field="Title" headerText="Task"></e-grid-column>
+
+        <e-grid-column field="Status" headerText="Status" editType="dropdownedit"></e-grid-column>
+
+        <e-grid-column field="ProductName" headerText="Product"></e-grid-column>
+
+        <e-grid-column field="CustomerName" headerText="Customer"></e-grid-column>
+    </e-grid-columns>
+
+</ejs-grid>
+
+</div>

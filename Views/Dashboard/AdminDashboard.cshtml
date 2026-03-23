@@ -1,0 +1,33 @@
+@model CRMProductSystem.ViewModels.AdminDashboardVM
+
+<h2 style="color:white;">Admin Dashboard</h2>
+
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:20px; margin-bottom:20px;">
+
+    <div class="card-modern">
+        <h5>Total Tasks</h5>
+        <h2>@Model.TotalTasks</h2>
+    </div>
+
+    <div class="card-modern">
+        <h5>Completed</h5>
+        <h2>@Model.CompletedTasks</h2>
+    </div>
+
+    <div class="card-modern">
+        <h5>Pending</h5>
+        <h2>@Model.PendingTasks</h2>
+    </div>
+
+</div>
+
+<div class="glass p-3">
+    <h4>Recent Tasks</h4>
+
+    <ejs-grid id="grid" dataSource="@Model.RecentTasks" allowPaging="true">
+        <e-grid-columns>
+            <e-grid-column field="Title" headerText="Task"></e-grid-column>
+            <e-grid-column field="Status" headerText="Status"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>

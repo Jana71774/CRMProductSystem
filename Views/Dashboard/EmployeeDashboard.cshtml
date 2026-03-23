@@ -1,0 +1,18 @@
+@model List<CRMProductSystem.Models.TaskModel>
+
+<h2 style="color:white;">My Tasks</h2>
+
+<div class="glass p-3 mb-3">
+    Track your assigned work and follow-ups here
+</div>
+
+<div class="glass p-4">
+    <ejs-grid id="grid" dataSource="@Model" allowPaging="true">
+        <e-grid-columns>
+            <e-grid-column field="Title" headerText="Task"></e-grid-column>
+            <e-grid-column field="Status" headerText="Status"></e-grid-column>
+            <e-grid-column field="ProductName" headerText="Product"></e-grid-column>
+            <e-grid-column field="CustomerName" headerText="Customer"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>

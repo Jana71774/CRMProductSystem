@@ -1,0 +1,22 @@
+@model CRMProductSystem.Models.User
+
+<h2>Create User</h2>
+
+<form method="post" asp-action="Create">
+
+    <label>Username</label>
+    <input asp-for="Username" class="form-control" required />
+
+    <label>Password</label>
+    <input asp-for="Password" type="password" class="form-control" required />
+
+    <label>Role</label>
+    <select asp-for="Role" class="form-control">
+        <option value="Admin">Admin</option>
+        <option value="Employee">Employee</option>
+    </select>
+
+    <br />
+
+    <button type="submit">Create</button>
+</form>

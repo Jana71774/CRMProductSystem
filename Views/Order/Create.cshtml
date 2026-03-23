@@ -1,0 +1,157 @@
+@model CRMProductSystem.Models.Order
+
+<h2>Create Order</h2>
+<a href="/Order/index" class="btn btn-info">All Orders</a>
+
+<form method="post">
+
+    <!-- CUSTOMER DROPDOWN (added to fix CustomerId error) -->
+    <div class="form-group" style="width:350px">
+        <label>Select Customer</label>
+        <select asp-for="CustomerId" class="form-control">
+            <option value="">-- Select Customer --</option>
+
+            @foreach (var c in ViewBag.Customers)
+            {
+                <option value="@c.CustomerId">@c.CustomerName</option>
+            }
+        </select>
+    </div>
+
+    <br />
+
+    <table class="table" id="orderTable">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th width="120">Price</th>
+                <th width="120">Qty</th>
+                <th width="150">Total</th>
+                <th width="80">Remove</th>
+            </tr>
+        </thead>
+
+        <tbody id="orderBody">
+            <!-- rows added dynamically -->
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-primary" onclick="addRow()">Add Product</button>
+
+    <hr />
+
+    <h4>Grand Total: ₹ <span id="grandTotal">0</span></h4>
+
+    <button type="submit" class="btn btn-success">Save Order</button>
+
+</form>
+
+<script>
+
+    let rowIndex = 0;
+
+    function addRow() {
+
+        let row = `
+        <tr>
+            <td>
+                <select name="OrderItems[${rowIndex}].ProductId"
+                        class="form-control productSelect"
+                        onchange="setPrice(this)">
+                    <option value="">Select Product</option>
+
+                    @foreach (var p in ViewBag.Products)
+                    {
+                        <option value="@p.ProductId" data-price="@p.Price">
+                            @p.ProductName
+                        </option>
+                    }
+                </select>
+            </td>
+
+            <td>
+                <input name="OrderItems[${rowIndex}].Price"
+                       class="form-control price"
+                       readonly />
+            </td>
+
+            <td>
+                <input name="OrderItems[${rowIndex}].Quantity"
+                       class="form-control qty"
+                       type="number"
+                       value="1"
+                       min="1"
+                       oninput="validateQty(this)"
+                       onchange="calculateTotal(this)" />
+            </td>
+
+            <td>
+                <input name="OrderItems[${rowIndex}].Total"
+                       class="form-control total"
+                       readonly />
+            </td>
+
+            <td>
+                <button type="button"
+                        class="btn btn-danger"
+                        onclick="removeRow(this)">X</button>
+            </td>
+        </tr>`;
+
+        document.getElementById("orderBody")
+                .insertAdjacentHTML("beforeend", row);
+
+        rowIndex++;
+    }
+
+
+    function setPrice(select) {
+
+        let price = select.options[select.selectedIndex]
+                          .getAttribute("data-price");
+
+        let row = select.closest("tr");
+
+        row.querySelector(".price").value = price;
+
+        calculateTotal(select);
+    }
+
+
+    function calculateTotal(input) {
+
+        let row = input.closest("tr");
+
+        let price = parseFloat(row.querySelector(".price").value) || 0;
+        let qty = parseInt(row.querySelector(".qty").value) || 0;
+
+        let total = price * qty;
+
+        row.querySelector(".total").value = total;
+
+        calculateGrandTotal();
+    }
+
+
+    function calculateGrandTotal() {
+
+        let totals = document.querySelectorAll(".total");
+
+        let grand = 0;
+
+        totals.forEach(t => {
+            grand += parseFloat(t.value) || 0;
+        });
+
+        document.getElementById("grandTotal").innerText = grand;
+    }
+
+
+    function removeRow(button) {
+
+        button.closest("tr").remove();
+
+        calculateGrandTotal();
+    }
+
+</script>

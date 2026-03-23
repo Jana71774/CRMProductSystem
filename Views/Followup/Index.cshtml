@@ -1,0 +1,62 @@
+@model List<CRMProductSystem.Models.TaskFollowup>
+
+<ejs-grid id="Grid" dataSource="@Model" allowPaging="true" allowSorting="true">
+
+    <e-grid-columns>
+
+        <e-grid-column field="FollowupId" headerText="ID" width="80"></e-grid-column>
+        <e-grid-column field="TaskId" headerText="Task ID" width="120"></e-grid-column>
+        <e-grid-column field="FollowupDate" headerText="Date" width="140" format="yMd"></e-grid-column>
+        <e-grid-column field="Notes" headerText="Notes" width="250"></e-grid-column>
+        <e-grid-column field="SalesStatus" headerText="Status" width="150" template="#statusColorTemplate"></e-grid-column>
+        <e-grid-column headerText="Update Status" width="200" template="#statusTemplate"></e-grid-column>
+
+    </e-grid-columns>
+</ejs-grid>
+<script id="statusColorTemplate" type="text/x-template">
+    ${if(SalesStatus == "Purchased")}
+        <span class="status purchased">${SalesStatus}</span>
+    ${else if(SalesStatus == "Interested")}
+        <span class="status interested">${SalesStatus}</span>
+    ${else}
+        <span class="status notinterested">${SalesStatus}</span>
+    ${/if}
+</script>
+<script id="statusTemplate" type="text/x-template">
+    <form method="post" action="/Followup/UpdateStatus">
+        <input type="hidden" name="followupId" value="${FollowupId}" />
+
+        <select name="salesStatus">
+            <option>Interested</option>
+            <option>Not Interested</option>
+            <option>Purchased</option>
+        </select>
+
+        <button type="submit">Update</button>
+    </form>
+</script>
+<style>
+.status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: white;
+    font-size: 13px;
+}
+
+/* Green */
+.purchased {
+    background-color: #28a745;
+}
+
+/* Yellow */
+.interested {
+    background-color: #ffc107;
+    color: black;
+}
+
+/* Red */
+.notinterested {
+    background-color: #dc3545;
+}
+</style>

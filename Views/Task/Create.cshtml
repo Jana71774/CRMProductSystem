@@ -1,0 +1,166 @@
+@model CRMProductSystem.Models.TaskModel
+
+<style>
+
+    .form-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid rgba(255,255,255,0.1);
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+    }
+
+    .btn-submit,
+    .btn-back {
+        padding: 12px 20px;
+        background-color: #2575fc;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .btn-submit:hover,
+    .btn-back:hover {
+        background-color: #1a5ed8;
+    }
+
+    .btn-back {
+        background-color: #888;
+        margin-left: 10px;
+    }
+
+    .btn-back:hover {
+        background-color: #555;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 13px;
+        margin-top: 4px;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Create Task</h2>
+
+    <form asp-action="Create" method="post" id="taskForm">
+        <div class="form-group">
+            <label asp-for="Title">Task Title</label>
+            <input asp-for="Title" required />
+            <div class="error-message" id="titleError">Please enter a task title.</div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="AssignedTo">Assign To (Employee)</label>
+            <select asp-for="AssignedTo">
+                <option value="">-- Select Employee --</option>
+                @foreach (var user in ViewBag.Users)
+                {
+                    <option value="@user.UserId">@user.Username</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CustomerId">Customer</label>
+            <select asp-for="CustomerId">
+                <option value="">-- Select Customer --</option>
+                @foreach (var c in ViewBag.Customers)
+                {
+                    <option value="@c.CustomerId">@c.CustomerName</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Product</label>
+                <select name="ProductId" class="form-control">
+            <option value="">-- Select Product --</option>
+
+            @foreach (var product in ViewBag.Products)
+            {
+                <option value="@product.ProductId">
+                     @product.ProductName
+                </option>
+            }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Status">Status</label>
+            <select asp-for="Status">
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn-submit">Create Task</button>
+            <a href="/Task/Index" class="btn-back">Back</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('taskForm').addEventListener('submit', function (e) {
+            let valid = true;
+
+            const title = document.querySelector('[name="Title"]');
+
+            document.getElementById('titleError').style.display = 'none';
+
+            if (!title.value.trim()) {
+                document.getElementById('titleError').style.display = 'block';
+                valid = false;
+            }
+
+            if (!valid) e.preventDefault();
+        });
+    </script>
+}

@@ -1,0 +1,38 @@
+@model List<CRMProductSystem.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2>Products</h2>
+
+<div class="glassmorphism p-4 mb-4">
+    <a href="@Url.Action("Create", "Product")">
+        <button class="btn-glass">Add Product</button>
+    </a>
+
+    <br /><br />
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <ejs-grid id="productGrid"
+                  dataSource="@Model"
+                  allowPaging="true"
+                  allowSorting="true"
+                  allowFiltering="true"
+                  toolbar="@(new List<string>() { "Search" })"
+                  height="400px"
+                  pageSettings="@(new Syncfusion.EJ2.Grids.GridPageSettings { PageSize = 10 })">
+
+            <e-grid-columns>
+                <e-grid-column field="ProductName" headerText="Product" width="200" textAlign="Left"></e-grid-column>
+                <e-grid-column field="Price" headerText="Price" format="C2" width="120" textAlign="Right"></e-grid-column>
+                <e-grid-column field="Description" headerText="Description" width="300" textAlign="Left"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    }
+    else
+    {
+        <p>No products found</p>
+    }
+</div>

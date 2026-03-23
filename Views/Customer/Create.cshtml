@@ -1,0 +1,98 @@
+@model CRMProductSystem.Models.Customer
+
+<style>
+
+
+    .form-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 13px;
+        margin-top: 4px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background-color: #2a5e35;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn-submit:hover {
+        background-color: #1c2e1f;
+    }
+</style>
+
+<div class="form-container">
+    <h2>Add Customer</h2>
+
+    <form method="post" asp-action="Create" id="customerForm">
+        <div class="form-group">
+            <label asp-for="CustomerName">Name</label>
+            <input asp-for="CustomerName" required />
+            <div class="error-message" id="nameError">Please enter the customer name.</div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Phone">Phone</label>
+            <input asp-for="Phone" required />
+            <div class="error-message" id="phoneError">Please enter a valid phone number.</div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" type="email" />
+            <div class="error-message" id="emailError">Please enter a valid email address.</div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Address">Address</label>
+            <textarea asp-for="Address" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Save</button>
+    </form>
+</div>

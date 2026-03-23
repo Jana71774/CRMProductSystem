@@ -1,0 +1,30 @@
+@model List<CRMProductSystem.Models.TaskModel>
+
+<h2>All Tasks</h2>
+
+<div class="glassmorphism p-4">
+    <a href="@Url.Action("Create", "task")">
+        <button class="btn-glass">create a task</button>
+    </a>
+
+    <br /><br />
+<ejs-grid id="taskGrid"
+          dataSource="@Model"
+          allowPaging="true"
+          allowSorting="true"
+          allowFiltering="true"
+          toolbar="@(new List<string>() { "Search" })">
+
+    <e-grid-editSettings allowEditing="true"></e-grid-editSettings>
+
+    <e-grid-columns>
+        <e-grid-column field="TaskId" isPrimaryKey="true" visible="false"></e-grid-column>
+        <e-grid-column field="Title" headerText="Task"></e-grid-column>
+        <e-grid-column field="Status" headerText="Status"></e-grid-column>
+        <e-grid-column field="EmployeeName" headerText="Assigned To"></e-grid-column>
+        <e-grid-column field="ProductName" headerText="Product"></e-grid-column>
+        <e-grid-column field="CustomerName" headerText="Customer"></e-grid-column>
+    </e-grid-columns>
+
+</ejs-grid>
+</div>

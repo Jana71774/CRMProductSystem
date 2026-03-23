@@ -1,0 +1,17 @@
+@model List<CRMProductSystem.Models.User>
+
+<h2 style="color:white;">Users</h2>
+
+<div class="glass p-4" style="overflow:auto;">
+    <a href="@Url.Action("Create", "User")">
+        <button class="btn-glass">Add user</button>
+    </a>
+
+    <br /><br />
+    <ejs-grid id="userGrid" dataSource="@Model" allowPaging="true">
+        <e-grid-columns>
+            <e-grid-column field="Username" headerText="Username"></e-grid-column>
+            <e-grid-column field="Role" headerText="Role"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+</div>
