@@ -4,7 +4,7 @@ namespace CRMProductSystem.Models
 {
     public class TaskModel
     {
-        internal DateTime CreatedDate;
+        internal DateTime CreatedDate= DateTime.Now;
 
         public int TaskId { get; set; }
 

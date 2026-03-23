@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using CRMProductSystem.Services;
 using CRMProductSystem.Models;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace CRMProductSystem.Controllers
 {
@@ -26,8 +28,16 @@ namespace CRMProductSystem.Controllers
         // =========================
         public IActionResult Index()
         {
-            var orders = _orderService.GetOrders();
-            return View(orders);
+            try
+            {
+                var orders = _orderService.GetOrders();
+                return View(orders);
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Error loading orders.";
+                return View(new List<Order>());
+            }
         }
 
         // =========================
@@ -35,30 +45,71 @@ namespace CRMProductSystem.Controllers
         // =========================
         public IActionResult Create()
         {
-            ViewBag.Customers = _customerService.GetCustomers();
-            ViewBag.Products = _productService.GetProducts();
-            return View();
+            try
+            {
+                ViewBag.Customers = _customerService.GetCustomers();
+                ViewBag.Products = _productService.GetProducts();
+                return View();
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Error loading create order page.";
+                return View();
+            }
         }
 
         // =========================
         // CREATE ORDER (POST)
         // =========================
         [HttpPost]
-        public IActionResult Create(Order order)
+        public IActionResult Create(Order order, List<OrderItem> orderItems)
         {
-            // Get logged-in user from session
-            order.OrderDate = DateTime.Now;
-
-            var userId = HttpContext.Session.GetInt32("UserId");
-
-            if (userId != null)
+            try
             {
-                order.UserId = userId.Value;
+                // Check if at least one product exists
+                if (orderItems == null || orderItems.Count == 0)
+                {
+                    ViewBag.Error = "Please add at least one product before placing the order.";
+
+                    ViewBag.Customers = _customerService.GetCustomers();
+                    ViewBag.Products = _productService.GetProducts();
+                    return View(order);
+                }
+
+                // Check quantity
+                if (orderItems.Any(i => i.Quantity <= 0))
+                {
+                    ViewBag.Error = "Quantity must be greater than 0.";
+
+                    ViewBag.Customers = _customerService.GetCustomers();
+                    ViewBag.Products = _productService.GetProducts();
+                    return View(order);
+                }
+
+                // Set order date
+                order.OrderDate = DateTime.Now;
+
+                // Get logged-in user from session
+                var userId = HttpContext.Session.GetInt32("UserId");
+                if (userId != null)
+                {
+                    order.UserId = userId.Value;
+                }
+
+                // Save order
+                _orderService.AddOrder(order);
+
+                return RedirectToAction("Index");
             }
+            catch (Exception)
+            {
+                ViewBag.Error = "Something went wrong while placing the order.";
 
-            _orderService.AddOrder(order);
+                ViewBag.Customers = _customerService.GetCustomers();
+                ViewBag.Products = _productService.GetProducts();
 
-            return RedirectToAction("Index");
+                return View(order);
+            }
         }
 
         // =========================
@@ -66,12 +117,20 @@ namespace CRMProductSystem.Controllers
         // =========================
         public IActionResult Details(int id)
         {
-            var order = _orderService.GetOrderById(id);
-            var items = _orderService.GetOrderItemsByOrderId(id);
+            try
+            {
+                var order = _orderService.GetOrderById(id);
+                var items = _orderService.GetOrderItemsByOrderId(id);
 
-            ViewBag.Items = items;
+                ViewBag.Items = items;
 
-            return View(order);
+                return View(order);
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Error loading order details.";
+                return RedirectToAction("Index");
+            }
         }
 
         // =========================
@@ -79,8 +138,16 @@ namespace CRMProductSystem.Controllers
         // =========================
         public IActionResult Delete(int id)
         {
-            _orderService.DeleteOrder(id);
-            return RedirectToAction("Index");
+            try
+            {
+                _orderService.DeleteOrder(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Error deleting order.";
+                return RedirectToAction("Index");
+            }
         }
     }
 }

@@ -510,3 +510,4 @@ C:\Users\jana\Documents\CRMProductSystem\bin\Debug\net10.0\SixLabors.Fonts.dll
 C:\Users\jana\Documents\CRMProductSystem\bin\Debug\net10.0\Syncfusion.Compression.Portable.dll
 C:\Users\jana\Documents\CRMProductSystem\bin\Debug\net10.0\Syncfusion.Pdf.Portable.dll
 C:\Users\jana\Documents\CRMProductSystem\bin\Debug\net10.0\System.IO.Packaging.dll
+C:\Users\jana\Documents\CRMProductSystem\obj\Debug\net10.0\CRMProductSystem.sourcelink.json

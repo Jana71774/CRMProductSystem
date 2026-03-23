@@ -1,4 +1,7 @@
 @model List<CRMProductSystem.Models.TaskFollowup>
+    <a href="@Url.Action("Create", "Followup")">
+        <button class="btn-glass">new followups</button>
+    </a>
 
 <ejs-grid id="Grid" dataSource="@Model" allowPaging="true" allowSorting="true">
 

@@ -23,6 +23,11 @@ namespace CRMProductSystem.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                ViewBag.Error = "Please enter username and password";
+                return View();
+            }
             var user = _authService.Login(username, password);
 
             if (user == null)

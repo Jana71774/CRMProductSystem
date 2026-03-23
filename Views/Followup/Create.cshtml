@@ -1,0 +1,41 @@
+@model CRMProductSystem.Models.TaskFollowup
+
+<h2>Create Follow-up</h2>
+
+<form method="post" asp-action="Create">
+
+    <!-- Task ID -->
+    <div class="form-group">
+        <label>Task Id</label>
+        <input asp-for="TaskId" class="form-control" required />
+    </div>
+
+    <!-- Followup Date -->
+    <div class="form-group">
+        <label>Follow-up Date</label>
+        <input asp-for="FollowupDate" type="date" class="form-control" required />
+    </div>
+
+    <!-- Notes -->
+    <div class="form-group">
+        <label>Notes</label>
+        <textarea asp-for="Notes" class="form-control"></textarea>
+    </div>
+
+    <!-- Sales Status -->
+    <div class="form-group">
+        <label>Sales Status</label>
+        <select asp-for="SalesStatus" class="form-control">
+            <option value="">Select Status</option>
+            <option value="Interested">Interested</option>
+            <option value="Not Interested">Not Interested</option>
+            <option value="Follow-up Required">Follow-up Required</option>
+            <option value="Closed">Closed</option>
+        </select>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">Create Follow-up</button>
+
+</form>

@@ -30,6 +30,7 @@ builder.Services.AddScoped<ReportService>();
 builder.Services.AddSingleton<ReportService>();
 
 var app = builder.Build();
+app.UseExceptionHandler("/Home/Error");
 
 // Syncfusion License
 SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JGaF1cXmhKYVJxWmFZfVhgd19FaVZTQWYuP1ZhSXxVdkZiWX9dc31XQ2dYWUB9XEA=");

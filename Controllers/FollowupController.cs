@@ -37,13 +37,28 @@ namespace CRMProductSystem.Controllers
             return View(followups);
         }
 
+        public IActionResult Create()
+            {
+                return View();
+            }
+
         // POST : Add followup
         [HttpPost]
         public IActionResult Create(TaskFollowup model)
         {
+            var userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId == null)
+                return RedirectToAction("Login", "Auth");
+
+            model.UserId = userId.Value;
+
             _followupService.Add(model);
+
             return RedirectToAction("Index");
         }
+
+
 
         // Update Sales Status
         [HttpPost]
