@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CRMProductSystem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08bbe434d5f04eb4cc5c16ca2bc53ddf66b3e398")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab81e6e0a4f271e7c8116dd3dc220244dbf83c47")]
+>>>>>>> 71906ed (just some fixes)
 [assembly: System.Reflection.AssemblyProductAttribute("CRMProductSystem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CRMProductSystem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
